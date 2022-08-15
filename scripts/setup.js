@@ -66,7 +66,7 @@ let base, explorer, cat, id, state;
             }
 
             cat = new Sprite(
-                resources["images/texture.json"].textures["030.png"]);
+                resources["images/texture.json"].textures["018.png"]);
 
             cat.x = 50;
             cat.y = app.stage.height / 2 - explorer.height / 2;
