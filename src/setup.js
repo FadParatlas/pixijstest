@@ -1,5 +1,11 @@
 let base, explorer, cat, id, state;
 
+const buttonPositions = [
+    70, 200,
+    60, 200,
+    50, 200,
+];
+
 function setup() {
     const basemap = TextureCache["house.png"];
     base = new Sprite(basemap);
@@ -65,62 +71,6 @@ function setup() {
         }
     }
 
-    const textureButton = new Sprite(resources["images/controlsprite/controlstext.json"].textures["s_key.png"]);
-    const textureButtonDown = new Sprite(resources["images/controlsprite/controlstext.json"].textures["a_key.png"]);
-    const textureButtonOver = new Sprite(resources["images/controlsprite/controlstext.json"].textures["d_key.png"]);
-
-    const buttons = [];
-
-    const buttonPositions = [
-        10, 75,
-        655, 30,
-        50, 10,
-    ];
-
-    for (let i = 0; i < 3; i++) {
-        const button = textureButton;
-
-        button.anchor.set(0.5);
-        button.x = buttonPositions[i * 2];
-        button.y = buttonPositions[i * 2 + 1];
-
-        // make the button interactive...
-        button.interactive = true;
-        button.buttonMode = true;
-
-        button
-            // Mouse & touch events are normalized into
-            // the pointer* events for handling different
-            // button events.
-            .on('pointerdown', onButtonDown)
-            .on('pointerup', onButtonUp)
-            .on('pointerupoutside', onButtonUp)
-            .on('pointerover', onButtonOver)
-            .on('pointerout', onButtonOut);
-
-        // Use mouse-only events
-        // .on('mousedown', onButtonDown)
-        // .on('mouseup', onButtonUp)
-        // .on('mouseupoutside', onButtonUp)
-        // .on('mouseover', onButtonOver)
-        // .on('mouseout', onButtonOut)
-
-        // Use touch-only events
-        // .on('touchstart', onButtonDown)
-        // .on('touchend', onButtonUp)
-        // .on('touchendoutside', onButtonUp)
-
-        // add it to the stage
-        app.stage.addChild(button);
-
-        // add button to array
-        buttons.push(button);
-    }
-
-    // set some silly values...
-    buttons[0].scale.set(1.2);
-    buttons[2].rotation = Math.PI / 10;
-
     cat = new Sprite(
         resources["images/texture.json"].textures["018.png"]);
 
@@ -136,6 +86,62 @@ function setup() {
     app.ticker.add((delta) => gameLoop(delta));
     app.stage.addChild(explorer);
 
+    const textureButton = new Sprite(resources["images/controlsprite/controlstext.json"].textures["s_key.png"]);
+    const textureButtonDown = new Sprite(resources["images/controlsprite/controlstext.json"].textures["a_key.png"]);
+    const textureButtonOver = new Sprite(resources["images/controlsprite/controlstext.json"].textures["d_key.png"]);
+
+    const button = textureButton;
+
+    button.anchor.set(0.5);
+    button.x = 100;
+    button.y = 50;
+
+    // make the button interactive...
+    button.interactive = true;
+    button.buttonMode = true;
+
+    button
+        .on('pointerdown', onButtonDown)
+        .on('pointerup', onButtonUp)
+        .on('pointerupoutside', onButtonUp)
+        .on('pointerover', onButtonOver)
+        .on('pointerout', onButtonOut);
+
+
+    app.stage.addChild(button);
+
+    function onButtonDown() {
+        this.isdown = true;
+        this.texture = textureButtonDown;
+        this.alpha = 1;
+    }
+
+    function onButtonUp() {
+        this.isdown = false;
+        if (this.isOver) {
+            this.texture = textureButtonOver;
+        } else {
+            this.texture = textureButton;
+        }
+    }
+
+    function onButtonOver() {
+        this.isOver = true;
+        if (this.isdown) {
+            return;
+        }
+        this.texture = textureButtonOver;
+    }
+
+    function onButtonOut() {
+        this.isOver = false;
+        if (this.isdown) {
+            return;
+        }
+        this.texture = textureButton;
+    }
+
+
 }
 
 function moveCat(e) {
@@ -144,4 +150,6 @@ function moveCat(e) {
     cat.x = pos.x;
     cat.y = pos.y;
 }
+
+
 
