@@ -7,9 +7,7 @@ function play(delta) {
     explorer.y += explorer.vy;
 
     if (hitTestRectangle(cat, explorer)){
-        console.log("lucas is gay");
 
     } else {
-        console.log("lucas is mega gay");
     }
 }
