@@ -72,12 +72,12 @@ function setup() {
     const buttons = [];
 
     const buttonPositions = [
-        175, 75,
-        655, 75,
-        410, 325,
+        10, 75,
+        655, 30,
+        50, 10,
     ];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         const button = textureButton;
 
         button.anchor.set(0.5);
@@ -120,16 +120,9 @@ function setup() {
     // set some silly values...
     buttons[0].scale.set(1.2);
     buttons[2].rotation = Math.PI / 10;
-    buttons[3].scale.set(0.8);
-    buttons[4].scale.set(0.8, 1.2);
-    buttons[4].rotation = Math.PI;
 
     cat = new Sprite(
         resources["images/texture.json"].textures["018.png"]);
-
-    test = new Sprite(
-        resources["images/controlsprite/controlstext.json"].textures["s_key.png"]);
-    app.stage.addChild(test);
 
     cat.x = 50;
     cat.y = app.stage.height / 2 - explorer.height / 2;
@@ -151,3 +144,4 @@ function moveCat(e) {
     cat.x = pos.x;
     cat.y = pos.y;
 }
+
