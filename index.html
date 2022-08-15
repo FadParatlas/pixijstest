@@ -9,14 +9,13 @@
 <body>
     <script src="pixi/pixi.min.js">
     </script>
-    <script src ="scripts/controls/keyboard.js">
+    <script src="src/controls/keyboard.js">
     </script>
-    <script src ="scripts/setup.js">
+    <script src="src/setup.js">
     </script>
-    <script src = "scripts/collisiondetection.js">
-        
+    <script src="src/collisiondetection.js">
     </script>
-    <script src = "scripts/gameloop.js">
+    <script src="src/gameloop.js">
     </script>
     <script type="text/javascript">
         let type = "WebGL";
@@ -46,21 +45,10 @@
         app.renderer.autoDensity = true;
         app.resizeTo = window;
 
-        //Add the canvas that Pixi automatically created for you to the HTML document
-        document.body.appendChild(app.view);
-
-        PIXI.Loader.shared.onProgress.add(loadProgressHandler);
-        loader.add("images/texture.json")
-            .load(setup);
-
-        function loadProgressHandler(loader, resource) {
-
-            console.log("loading: " + resource.url);
-
-            console.log("progreaaass: " + loader.progress + "%");
-        }
         document.body.appendChild(app.view);
         PIXI.utils.sayHello(type);
+    </script>
+    <script src="src/loader.js">
     </script>
 
     <style>
