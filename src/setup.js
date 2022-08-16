@@ -1,4 +1,5 @@
 let base, explorer, cat, id, state;
+let pointerIsOver = false, pointerIsDown = false;
 
 const buttonPositions = [
     70, 200,
@@ -86,9 +87,10 @@ function setup() {
     app.ticker.add((delta) => gameLoop(delta));
     app.stage.addChild(explorer);
 
-    const textureButton = new Sprite(resources["images/controlsprite/controlstext.json"].textures["s_key.png"]);
-    const textureButtonDown = new Sprite(resources["images/controlsprite/controlstext.json"].textures["a_key.png"]);
-    const textureButtonOver = new Sprite(resources["images/controlsprite/controlstext.json"].textures["d_key.png"]);
+    const textureButton = new PIXI.Sprite.from(resources["images/controlsprite/controlstext.json"].textures["s_key.png"]);
+    textureBut = resources["images/controlsprite/controlstext.json"].textures["s_key.png"];
+    const textureButtonDown = resources["images/controlsprite/controlstext.json"].textures["a_key.png"];
+    const textureButtonOver = resources["images/controlsprite/controlstext.json"].textures["d_key.png"];
 
     const button = textureButton;
 
@@ -111,34 +113,33 @@ function setup() {
     app.stage.addChild(button);
 
     function onButtonDown() {
-        this.isdown = true;
-        this.texture = textureButtonDown;
-        this.alpha = 1;
+        pointerIsDown = true;
+        button.texture = textureButtonDown;
     }
 
     function onButtonUp() {
-        this.isdown = false;
-        if (this.isOver) {
-            this.texture = textureButtonOver;
-        } else {
-            this.texture = textureButton;
-        }
+        button.texture = textureBut;
+        pointerIsDown = false;
     }
 
     function onButtonOver() {
-        this.isOver = true;
-        if (this.isdown) {
+        if (pointerIsDown !== true) {
+            button.texture = textureButtonOver;
+            pointerIsOver = true;
+        }
+        else {
             return;
         }
-        this.texture = textureButtonOver;
     }
 
     function onButtonOut() {
-        this.isOver = false;
-        if (this.isdown) {
+        if (pointerIsDown !== true) {
+            button.texture = textureBut;
+            pointerIsOver = false;
+        }
+        else {
             return;
         }
-        this.texture = textureButton;
     }
 
 
